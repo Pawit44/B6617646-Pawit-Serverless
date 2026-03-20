@@ -14,8 +14,9 @@ spec:
         app: grafana
     spec:
       securityContext:
-        fsGroup: 1000
+        fsGroup: 0
         runAsUser: 0
+      serviceAccountName: grafana-admin
       containers:
         - name: grafana
           image: grafana/grafana:latest
@@ -48,8 +49,10 @@ spec:
               memory: 750Mi
           volumeMounts:
             - mountPath: /var/lib/grafana
-              name: grafana-pv
+              name: grafanadata
       volumes:
-        - name: grafana-pv
+        - name: grafanadata
           persistentVolumeClaim:
             claimName: grafana-pvc
+
+      
